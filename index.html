@@ -221,7 +221,7 @@
       outline: none; transition: border-color 0.2s;
     }
     .select-wrap select:focus { border-color: var(--primary); }
-    .select-wrap .icon { position: absolute; right: 0; top: 0; pointer-events: none; color: rgba(62,31,13,0.5); }
+    .select-wrap .icon { position: absolute; right: 0; top: 50%; transform: translateY(-50%); pointer-events: none; color: rgba(62,31,13,0.5); }
 
     .result-count {
       font-family: 'Bebas Neue', sans-serif;
@@ -232,7 +232,7 @@
 
     /* ─── GRID ─── */
     #grid { max-width: 120rem; margin: 0 auto; padding: 5rem 2rem; min-height: 40vh; }
-    .places-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem 2rem; }
+    .places-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem; }
 
     .place-card { position: relative; cursor: pointer; }
     .place-card:nth-child(5n+1) { grid-column: span 8; }
@@ -247,8 +247,8 @@
     }
 
     .card-image {
-      width: 100%; height: 100%;
-      min-height: 280px;
+      width: 100%;
+      aspect-ratio: 4/3;
       overflow: hidden;
       position: relative;
       background: rgba(62,31,13,0.05);
@@ -300,6 +300,7 @@
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1.2rem; color: rgba(62,31,13,0.25);
       transition: color 0.2s;
+      align-self: center;
     }
     .place-card:hover .card-num { color: rgba(209,35,24,0.5); }
 
@@ -328,9 +329,8 @@
       background: var(--primary);
       padding: clamp(3rem, 8vw, 7rem);
       display: flex; flex-direction: column; justify-content: center;
-      position: sticky; top: 74px; align-self: flex-start;
     }
-    @media (max-width: 768px) { .narrative-left { width: 100%; position: relative; top: 0; } }
+    @media (max-width: 768px) { .narrative-left { width: 100%; } }
     .narrative-left h2 {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(4rem, 9vw, 9rem);
@@ -376,7 +376,7 @@
       position: relative; overflow: hidden;
     }
     .guidelines-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
-    .guidelines-header svg { color: var(--primary); }
+    .guidelines-header svg { color: var(--primary); flex-shrink: 0; }
     .guidelines-header h3 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.05em; }
     .guidelines-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
     .guideline-num {
@@ -413,9 +413,9 @@
     .contact-wrap { max-width: 120rem; margin: 0 auto; }
     .contact-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 9vw, 7rem); line-height: 0.9; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
     .contact-subtitle { font-size: 1.1rem; color: rgba(62,31,13,0.7); max-width: 40rem; margin-bottom: 4rem; line-height: 1.7; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
     @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
-    .quick-links { background: rgba(62,31,13,0.04); border: 1px solid rgba(62,31,13,0.15); padding: 2rem; border-radius: 0.5rem; margin-top: 2rem; }
+    .quick-links { background: rgba(62,31,13,0.04); border: 1px solid rgba(62,31,13,0.15); padding: 2rem; border-radius: 0.5rem; }
     .quick-links h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; margin-bottom: 1.5rem; }
     .quick-links a { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--primary); text-decoration: none; margin-bottom: 0.75rem; }
 
@@ -475,16 +475,16 @@
     }
     .detail-back:hover { color: var(--primary); }
     .detail-wrap { max-width: 100rem; margin: 0 auto; padding: 3rem 2rem; }
-    .detail-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+    .detail-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; align-items: start; }
     @media (max-width: 768px) { .detail-hero { grid-template-columns: 1fr; } }
     .detail-image {
       background: var(--highlight);
       aspect-ratio: 4/5; overflow: hidden;
     }
     .detail-image img { width: 100%; height: 100%; object-fit: cover; }
-    .detail-meta { display: flex; flex-direction: column; justify-content: center; gap: 2rem; }
+    .detail-meta { display: flex; flex-direction: column; justify-content: flex-start; gap: 2rem; }
     .detail-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 7vw, 6rem); line-height: 0.9; letter-spacing: -0.02em; }
-    .detail-badges { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .detail-badges { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
     .badge {
       display: flex; align-items: center; gap: 0.5rem;
       padding: 0.6rem 1.25rem; font-size: 0.9rem;
@@ -502,13 +502,14 @@
       letter-spacing: 0.1em; text-transform: uppercase;
       padding: 1rem 2rem; text-decoration: none;
       transition: background 0.2s;
+      align-self: flex-start;
     }
     .more-link:hover { background: rgba(209,35,24,0.88); }
     .detail-sections { display: flex; flex-direction: column; gap: 3rem; }
     .section-significance { background: var(--primary); padding: clamp(2rem, 5vw, 4rem); }
     .section-significance h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.05em; color: var(--primary-fg); margin-bottom: 1.5rem; }
     .section-significance p { font-size: 1.1rem; line-height: 1.8; color: var(--primary-fg); }
-    .section-history { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: center; }
+    .section-history { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: start; }
     @media (max-width: 768px) { .section-history { grid-template-columns: 1fr; } }
     .history-label { background: var(--highlight); padding: 2rem; }
     .history-label h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 0.9; color: var(--secondary); }
