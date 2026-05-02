@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sacred Pakistan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F9F3E9;
+      --secondary: #3E1F0D;
+      --secondary-fg: #F9F3E9;
+      --primary: #D12318;
+      --primary-fg: #FFFFFF;
+      --highlight: #B9B04A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--secondary);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── UTILS ─── */
+    .font-heading { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.02em; }
+    .uppercase { text-transform: uppercase; }
+
+    .editorial-underline { position: relative; display: inline-block; }
+    .editorial-underline::after {
+      content: '';
+      position: absolute;
+      width: 100%; height: 2px;
+      bottom: 0; left: 0;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.4s cubic-bezier(0.86,0,0.07,1);
+    }
+    .editorial-underline:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+
+    .clip-arch {
+      border-top-left-radius: 50vw;
+      border-top-right-radius: 50vw;
+      overflow: hidden;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg);
+      border-bottom: 2px solid var(--secondary);
+      padding: 1.5rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--secondary);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .logo:hover { color: var(--primary); }
+
+    nav { display: flex; gap: 2rem; align-items: center; }
+    nav a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--primary); }
+
+    .hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--secondary); }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1.5rem 2rem;
+      border-top: 2px solid var(--secondary);
+      background: var(--bg);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: block; }
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-title-wrap {
+      text-align: center;
+      padding: 4rem 1rem 0;
+      position: relative; z-index: 2;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 19vw;
+      line-height: 0.82;
+      letter-spacing: -0.01em;
+      color: var(--secondary);
+      display: block;
+    }
+    .hero-cats {
+      border-top: 1px solid rgba(62,31,13,0.2);
+      border-bottom: 1px solid rgba(62,31,13,0.2);
+      padding: 1.5rem 2rem;
+      margin: 2.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      overflow-x: auto;
+      gap: 2rem;
+      position: relative; z-index: 2;
+    }
+    .hero-cats span {
+      white-space: nowrap; flex-shrink: 0;
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .hero-cats .big {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.2rem, 2.5vw, 2rem);
+      letter-spacing: 0.05em;
+    }
+    .hero-graphic {
+      flex: 1;
+      display: flex; justify-content: center; align-items: flex-end;
+      position: relative; min-height: 40vh;
+    }
+    .hero-shape {
+      position: absolute; bottom: 0;
+      width: 80vw; height: 60vw; max-height: 500px;
+      background: var(--highlight);
+      border-top-left-radius: 50vw;
+      border-top-right-radius: 50vw;
+      opacity: 0.75; mix-blend-mode: multiply;
+    }
+    .hero-image-wrap {
+      position: relative; z-index: 2;
+      width: clamp(300px, 55vw, 680px);
+      height: clamp(250px, 45vw, 560px);
+      border-top-left-radius: 50vw;
+      border-top-right-radius: 50vw;
+      overflow: hidden;
+      background: var(--secondary);
+    }
+    .hero-image-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.85; mix-blend-mode: luminosity;
+      transition: mix-blend-mode 1s, opacity 1s;
+    }
+    .hero-image-wrap:hover img { mix-blend-mode: normal; opacity: 1; }
+
+    /* ─── FILTER BAR ─── */
+    #explore {
+      position: sticky; top: 74px; z-index: 50;
+      background: rgba(249,243,233,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(62,31,13,0.2);
+      padding: 1.5rem 2rem;
+    }
+    .filter-inner {
+      max-width: 120rem; margin: 0 auto;
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: center;
+      gap: 1.5rem;
+    }
+    .search-wrap {
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .search-wrap svg { color: var(--primary); flex-shrink: 0; }
+    .search-wrap input {
+      background: transparent;
+      border: none; border-bottom: 1px solid rgba(62,31,13,0.3);
+      padding: 0.25rem 0;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem; letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--secondary); width: 200px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-wrap input:focus { border-color: var(--primary); }
+    .search-wrap input::placeholder { color: rgba(62,31,13,0.4); }
+
+    .selects { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+    .select-wrap { position: relative; }
+    .select-wrap select {
+      appearance: none;
+      background: transparent;
+      border: none; border-bottom: 1px solid rgba(62,31,13,0.3);
+      padding: 0.25rem 1.5rem 0.25rem 0;
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--secondary); cursor: pointer;
+      outline: none; transition: border-color 0.2s;
+    }
+    .select-wrap select:focus { border-color: var(--primary); }
+    .select-wrap .icon { position: absolute; right: 0; top: 0; pointer-events: none; color: rgba(62,31,13,0.5); }
+
+    .result-count {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem; color: var(--primary);
+      white-space: nowrap;
+    }
+    .result-count span { font-size: 0.75rem; font-family: 'Lato', sans-serif; letter-spacing: 0.15em; text-transform: uppercase; color: var(--secondary); }
+
+    /* ─── GRID ─── */
+    #grid { max-width: 120rem; margin: 0 auto; padding: 5rem 2rem; min-height: 40vh; }
+    .places-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem 2rem; }
+
+    .place-card { position: relative; cursor: pointer; }
+    .place-card:nth-child(5n+1) { grid-column: span 8; }
+    .place-card:nth-child(5n+2) { grid-column: span 4; margin-top: 8rem; }
+    .place-card:nth-child(5n+3) { grid-column: span 4; }
+    .place-card:nth-child(5n+4) { grid-column: span 8; margin-top: 4rem; }
+    .place-card:nth-child(5n+5) { grid-column: span 12; }
+
+    @media (max-width: 900px) {
+      .places-grid { grid-template-columns: 1fr; }
+      .place-card, .place-card:nth-child(n) { grid-column: span 1; margin-top: 0; }
+    }
+
+    .card-image {
+      width: 100%; height: 100%;
+      min-height: 280px;
+      overflow: hidden;
+      position: relative;
+      background: rgba(62,31,13,0.05);
+    }
+    .card-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1s ease;
+    }
+    .place-card:hover .card-image img { transform: scale(1.05); }
+    .card-overlay {
+      position: absolute; inset: 0;
+      background: rgba(209,35,24,0);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.5s;
+    }
+    .place-card:hover .card-overlay { background: rgba(209,35,24,0.2); }
+    .card-arrow {
+      width: 4rem; height: 4rem; border-radius: 50%;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0.5);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .place-card:hover .card-arrow { opacity: 1; transform: scale(1); }
+    .card-arrow svg { color: var(--primary); }
+
+    .card-tag {
+      position: absolute; top: 1rem; left: 1rem;
+      background: rgba(249,243,233,0.92);
+      backdrop-filter: blur(4px);
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 0.35rem 0.75rem; color: var(--secondary);
+    }
+    .card-meta {
+      margin-top: 1.25rem;
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      letter-spacing: 0.02em; line-height: 1;
+      color: var(--secondary);
+      transition: color 0.2s;
+    }
+    .place-card:hover .card-title { color: var(--primary); }
+    .card-type { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(62,31,13,0.6); margin-top: 0.4rem; }
+    .card-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem; color: rgba(62,31,13,0.25);
+      transition: color 0.2s;
+    }
+    .place-card:hover .card-num { color: rgba(209,35,24,0.5); }
+
+    .no-results {
+      grid-column: span 12;
+      border: 1px dashed rgba(62,31,13,0.2);
+      padding: 8rem 2rem;
+      text-align: center;
+    }
+    .no-results h3 { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: rgba(62,31,13,0.2); }
+    .no-results p { font-size: 1.1rem; color: rgba(62,31,13,0.6); margin-top: 0.5rem; }
+    .no-results button {
+      margin-top: 2rem; background: none; border: none; cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
+      color: var(--primary); text-transform: uppercase;
+    }
+
+    /* ─── NARRATIVE ─── */
+    #about {
+      background: var(--secondary);
+      color: var(--secondary-fg);
+      display: flex; flex-wrap: wrap;
+    }
+    .narrative-left {
+      width: 50%; min-width: 300px;
+      background: var(--primary);
+      padding: clamp(3rem, 8vw, 7rem);
+      display: flex; flex-direction: column; justify-content: center;
+      position: sticky; top: 74px; align-self: flex-start;
+    }
+    @media (max-width: 768px) { .narrative-left { width: 100%; position: relative; top: 0; } }
+    .narrative-left h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 9vw, 9rem);
+      line-height: 0.85; letter-spacing: -0.02em;
+      color: var(--primary-fg);
+    }
+    .narrative-left .bar { margin-top: 3rem; width: 6rem; height: 0.5rem; background: var(--highlight); }
+    .narrative-right {
+      width: 50%; min-width: 300px;
+      padding: clamp(3rem, 8vw, 7rem);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    @media (max-width: 768px) { .narrative-right { width: 100%; } }
+    .narrative-intro { font-size: clamp(1.2rem, 2vw, 1.7rem); line-height: 1.6; font-weight: 300; }
+    .narrative-body { margin-top: 1.5rem; font-size: clamp(0.95rem, 1.2vw, 1.1rem); line-height: 1.8; color: rgba(249,243,233,0.7); }
+    .vision-box {
+      margin-top: 3rem;
+      background: var(--bg); color: var(--secondary);
+      padding: 3rem; position: relative; overflow: hidden;
+    }
+    .vision-box .corner { position: absolute; top: 0; right: 0; width: 5rem; height: 5rem; background: var(--highlight); border-radius: 0 0 0 100%; }
+    .vision-box h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.05em; position: relative; z-index: 1; margin-bottom: 1rem; }
+    .vision-box p { font-size: 1rem; line-height: 1.7; position: relative; z-index: 1; }
+    .get-involved {
+      margin-top: 2rem;
+      border: 1px solid rgba(249,243,233,0.2);
+      padding: 3rem;
+    }
+    .get-involved h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.05em; color: var(--highlight); margin-bottom: 1rem; }
+    .get-involved p { font-size: 1rem; line-height: 1.7; color: rgba(249,243,233,0.8); margin-bottom: 2rem; }
+    .get-involved button {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
+      letter-spacing: 0.05em; text-transform: uppercase; color: var(--secondary-fg);
+    }
+
+    /* ─── GUIDELINES ─── */
+    #volunteer { background: var(--bg); padding: 5rem 2rem; }
+    .guidelines-wrap { max-width: 120rem; margin: 0 auto; }
+    .guidelines-box {
+      border: 2px solid rgba(62,31,13,0.2);
+      padding: clamp(2rem, 5vw, 4rem);
+      position: relative; overflow: hidden;
+    }
+    .guidelines-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
+    .guidelines-header svg { color: var(--primary); }
+    .guidelines-header h3 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.05em; }
+    .guidelines-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
+    .guideline-num {
+      width: 3rem; height: 3rem; background: rgba(209,35,24,0.08);
+      border-radius: 0.5rem; display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .guideline-item h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    .guideline-item p { font-size: 0.9rem; line-height: 1.7; color: rgba(62,31,13,0.7); }
+
+    /* ─── FULLBLEED ─── */
+    .fullbleed {
+      width: 100%; height: 80vh;
+      position: relative; overflow: hidden;
+    }
+    .fullbleed img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .fullbleed .tint { position: absolute; inset: 0; background: rgba(62,31,13,0.4); mix-blend-mode: multiply; }
+    .fullbleed .word {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .fullbleed .word span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13vw; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--bg); opacity: 0.9; mix-blend-mode: overlay;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--bg); padding: 5rem 2rem; }
+    .contact-wrap { max-width: 120rem; margin: 0 auto; }
+    .contact-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 9vw, 7rem); line-height: 0.9; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .contact-subtitle { font-size: 1.1rem; color: rgba(62,31,13,0.7); max-width: 40rem; margin-bottom: 4rem; line-height: 1.7; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+    .quick-links { background: rgba(62,31,13,0.04); border: 1px solid rgba(62,31,13,0.15); padding: 2rem; border-radius: 0.5rem; margin-top: 2rem; }
+    .quick-links h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; margin-bottom: 1.5rem; }
+    .quick-links a { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--primary); text-decoration: none; margin-bottom: 0.75rem; }
+
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .form-group input, .form-group textarea {
+      width: 100%; background: rgba(62,31,13,0.04);
+      border: 1px solid rgba(62,31,13,0.2);
+      padding: 1rem 1.25rem; font-size: 1rem; color: var(--secondary);
+      font-family: 'Lato', sans-serif;
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(62,31,13,0.4); }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
+    .form-group textarea { resize: vertical; min-height: 160px; }
+    .submit-btn {
+      width: 100%;
+      background: var(--primary); color: var(--primary-fg);
+      border: none; cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 1.25rem; display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .submit-btn:hover { background: rgba(209,35,24,0.88); }
+    .submit-btn:active { transform: scale(0.98); }
+    .success-msg {
+      display: none; margin-top: 1rem;
+      background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534;
+      padding: 1rem; border-radius: 0.5rem; text-align: center; font-size: 0.95rem;
+    }
+    .success-msg.show { display: block; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--secondary); color: var(--secondary-fg); padding: 4rem 2rem; }
+    .footer-inner { max-width: 120rem; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.05em; margin-bottom: 1rem; }
+    .footer-brand p { font-size: 0.9rem; line-height: 1.7; color: rgba(249,243,233,0.75); }
+    .footer-links h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em; margin-bottom: 1.5rem; }
+    .footer-links a { display: block; font-size: 0.9rem; color: rgba(249,243,233,0.75); text-decoration: none; margin-bottom: 0.75rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--highlight); }
+    .footer-bottom { border-top: 1px solid rgba(249,243,233,0.2); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-bottom p, .footer-bottom a { font-size: 0.8rem; color: rgba(249,243,233,0.6); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--highlight); }
+
+    /* ─── DETAIL PAGE ─── */
+    #detail-page { display: none; }
+    #detail-page.active { display: block; }
+    #home-page.hidden { display: none; }
+    .detail-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--secondary); text-decoration: none; cursor: pointer;
+      margin-bottom: 2rem; transition: color 0.2s;
+    }
+    .detail-back:hover { color: var(--primary); }
+    .detail-wrap { max-width: 100rem; margin: 0 auto; padding: 3rem 2rem; }
+    .detail-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+    @media (max-width: 768px) { .detail-hero { grid-template-columns: 1fr; } }
+    .detail-image {
+      background: var(--highlight);
+      aspect-ratio: 4/5; overflow: hidden;
+    }
+    .detail-image img { width: 100%; height: 100%; object-fit: cover; }
+    .detail-meta { display: flex; flex-direction: column; justify-content: center; gap: 2rem; }
+    .detail-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 7vw, 6rem); line-height: 0.9; letter-spacing: -0.02em; }
+    .detail-badges { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .badge {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.25rem; font-size: 0.9rem;
+    }
+    .badge-yellow { background: var(--highlight); color: var(--secondary); }
+    .badge-dark { background: var(--secondary); color: var(--secondary-fg); }
+    .badge-red { background: var(--primary); color: var(--primary-fg); }
+    .detail-location { background: var(--secondary); color: var(--secondary-fg); padding: 2rem; }
+    .detail-location h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
+    .detail-location p { font-size: 0.95rem; line-height: 1.7; color: rgba(249,243,233,0.85); }
+    .more-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--primary); color: var(--primary-fg);
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 1rem 2rem; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .more-link:hover { background: rgba(209,35,24,0.88); }
+    .detail-sections { display: flex; flex-direction: column; gap: 3rem; }
+    .section-significance { background: var(--primary); padding: clamp(2rem, 5vw, 4rem); }
+    .section-significance h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.05em; color: var(--primary-fg); margin-bottom: 1.5rem; }
+    .section-significance p { font-size: 1.1rem; line-height: 1.8; color: var(--primary-fg); }
+    .section-history { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: center; }
+    @media (max-width: 768px) { .section-history { grid-template-columns: 1fr; } }
+    .history-label { background: var(--highlight); padding: 2rem; }
+    .history-label h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 0.9; color: var(--secondary); }
+    .history-text { font-size: 1.05rem; line-height: 1.8; color: var(--secondary); }
+    .section-visit { background: var(--secondary); padding: clamp(2rem, 5vw, 4rem); }
+    .section-visit h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); color: var(--secondary-fg); margin-bottom: 2rem; }
+    .visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    @media (max-width: 600px) { .visit-grid { grid-template-columns: 1fr; } }
+    .visit-col h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--secondary-fg); margin-bottom: 1rem; }
+    .visit-col ul { list-style: none; }
+    .visit-col li { font-size: 0.95rem; color: rgba(249,243,233,0.85); line-height: 1.8; }
+
+    /* ─── LOADING SPINNER ─── */
+    .spinner-wrap { display: flex; justify-content: center; align-items: center; padding: 5rem; }
+    .spinner {
+      width: 4rem; height: 4rem;
+      border: 4px solid rgba(62,31,13,0.15);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-in { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ HOME PAGE ══════════ -->
+<div id="home-page">
+
+  <!-- HEADER -->
+  <header>
+    <a href="#" class="logo" onclick="showHome()">Sacred Pakistan</a>
+    <nav>
+      <a href="#hero">Home</a>
+      <a href="#explore">Explore</a>
+      <a href="#about">About</a>
+      <a href="#volunteer">Get Involved</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </header>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#hero" onclick="closeMobileNav()">Home</a>
+    <a href="#explore" onclick="closeMobileNav()">Explore</a>
+    <a href="#about" onclick="closeMobileNav()">About</a>
+    <a href="#volunteer" onclick="closeMobileNav()">Get Involved</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-title-wrap">
+      <span class="hero-title">SACRED</span>
+      <span class="hero-title">PLACES</span>
+    </div>
+    <div class="hero-cats" id="hero-cats">
+      <span>Cultural Heritage</span>
+      <span class="big" id="cat1">—</span>
+      <span class="big" id="cat2">—</span>
+      <span class="big" id="cat3">—</span>
+      <span class="big" id="cat4">—</span>
+      <span>Archive</span>
+    </div>
+    <div class="hero-graphic">
+      <div class="hero-shape"></div>
+      <div class="hero-image-wrap">
+        <img id="hero-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&auto=format&fit=crop" alt="Sacred Place" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <section id="explore">
+    <div class="filter-inner">
+      <div class="search-wrap">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search-input" placeholder="Search the archive..." oninput="filterPlaces()" />
+      </div>
+      <div class="selects">
+        <div class="select-wrap">
+          <select id="region-select" onchange="filterPlaces()">
+            <option value="">All Regions</option>
+          </select>
+          <svg class="icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="select-wrap">
+          <select id="type-select" onchange="filterPlaces()">
+            <option value="">All Types</option>
+          </select>
+          <svg class="icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 21h18M9 21V9l3-6 3 6v12M9 12h6"/></svg>
+        </div>
+        <div class="select-wrap">
+          <select id="affiliation-select" onchange="filterPlaces()">
+            <option value="">All Affiliations</option>
+          </select>
+          <svg class="icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="result-count"><span id="result-num">00</span> <span>Results</span></div>
+    </div>
+  </section>
+
+  <!-- GRID -->
+  <section id="grid">
+    <div class="places-grid" id="places-grid">
+      <div class="spinner-wrap" style="grid-column:span 12"><div class="spinner"></div></div>
+    </div>
+  </section>
+
+  <!-- NARRATIVE -->
+  <section id="about">
+    <div class="narrative-left fade-in">
+      <h2>PRESERVING<br>HERITAGE</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="narrative-right">
+      <p class="narrative-intro fade-in">Pakistan is home to countless sacred sites that represent centuries of spiritual devotion, architectural brilliance, and cultural diversity.</p>
+      <p class="narrative-body fade-in">From ancient temples to historic mosques, from serene shrines to majestic churches, each place tells a unique story of faith and community. Our mission is to raise awareness about these treasured locations, promote their preservation, and inspire visitors to experience the profound spiritual and historical significance they hold.</p>
+      <div class="vision-box fade-in">
+        <div class="corner"></div>
+        <h3>Our Vision</h3>
+        <p>To create a comprehensive digital archive that celebrates and protects Pakistan's sacred heritage for future generations.</p>
+      </div>
+      <div class="get-involved fade-in">
+        <h3>Get Involved</h3>
+        <p>Join us in documenting and preserving these sacred spaces. Share your experiences, photographs, and stories to enrich our collective understanding.</p>
+        <button class="editorial-underline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contribute Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUIDELINES -->
+  <section id="volunteer">
+    <div class="guidelines-wrap">
+      <div class="guidelines-box fade-in">
+        <div class="guidelines-header">
+          <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+          <h3>Visitor Guidelines</h3>
+        </div>
+        <div class="guidelines-grid">
+          <div class="guideline-item"><div class="guideline-num">1</div><h4>Respect Sacred Spaces</h4><p>Follow local customs and dress codes. Remove shoes when required and maintain silence in prayer areas.</p></div>
+          <div class="guideline-item"><div class="guideline-num">2</div><h4>Keep It Clean</h4><p>Dispose of waste properly. Use designated bins and avoid littering. Leave no trace of your visit.</p></div>
+          <div class="guideline-item"><div class="guideline-num">3</div><h4>Protect Artifacts</h4><p>Do not touch or remove historical items. Photography may be restricted — always ask permission first.</p></div>
+          <div class="guideline-item"><div class="guideline-num">4</div><h4>Support Local Communities</h4><p>Purchase from local vendors and respect community guidelines. Your support helps sustain these sites.</p></div>
+          <div class="guideline-item"><div class="guideline-num">5</div><h4>Report Issues</h4><p>If you notice damage or maintenance needs, report them to site authorities or contact us directly.</p></div>
+          <div class="guideline-item"><div class="guideline-num">6</div><h4>Share Responsibly</h4><p>When sharing experiences online, be respectful and avoid sensitive content. Help preserve these spaces digitally.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FULLBLEED -->
+  <div class="fullbleed">
+    <img id="fullbleed-img" src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=1600&auto=format&fit=crop" alt="Sacred site" loading="lazy" />
+    <div class="tint"></div>
+    <div class="word"><span>ETERNITY</span></div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-wrap">
+      <h2 class="contact-title fade-in">Contact Us</h2>
+      <p class="contact-subtitle fade-in">Are you a sacred place manager or representative? We'd love to hear from you. Share your stories, report maintenance needs, or collaborate with us to preserve your heritage.</p>
+      <div class="contact-grid">
+        <div class="fade-in">
+          <div class="quick-links">
+            <h4>Quick Links</h4>
+            <a href="#" class="editorial-underline">Report Maintenance Issues</a>
+            <a href="#" class="editorial-underline">Submit Historical Documentation</a>
+            <a href="#" class="editorial-underline">Partnership Opportunities</a>
+          </div>
+        </div>
+        <div class="fade-in">
+          <form id="contact-form" onsubmit="submitContact(event)">
+            <div class="form-group"><label>Your Name</label><input type="text" placeholder="Enter your name" required /></div>
+            <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com" required /></div>
+            <div class="form-group"><label>Subject</label><input type="text" placeholder="How can we help?" required /></div>
+            <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your sacred place or how we can assist..." required></textarea></div>
+            <button type="submit" class="submit-btn">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send Message
+            </button>
+            <div class="success-msg" id="success-msg">Thank you! We've received your message and will be in touch soon.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Sacred Pakistan</h3>
+          <p>Documenting and preserving the spiritual heritage of Pakistan's most revered sites.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="#hero">Home</a>
+          <a href="#explore">Explore Places</a>
+          <a href="#about">About Us</a>
+          <a href="#volunteer">Get Involved</a>
+        </div>
+        <div class="footer-links">
+          <h4>Our Mission</h4>
+          <p style="font-size:.9rem;line-height:1.7;color:rgba(249,243,233,0.75)">To raise awareness, promote preservation, and celebrate the diverse spiritual heritage of Pakistan.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p id="copyright"></p>
+        <div style="display:flex;gap:1.5rem">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- end #home-page -->
+
+
+<!-- ══════════ DETAIL PAGE ══════════ -->
+<div id="detail-page">
+  <header>
+    <a href="#" class="logo" onclick="showHome()">Sacred Pakistan</a>
+    <nav>
+      <a href="#" onclick="showHome()">Home</a>
+      <a href="#" onclick="showHome(); setTimeout(()=>document.getElementById('explore').scrollIntoView({behavior:'smooth'}),200)">Explore</a>
+    </nav>
+  </header>
+  <div class="detail-wrap" id="detail-content"></div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <p id="copyright2"></p>
+        <a href="#" onclick="showHome()">← Back to Home</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const PLACES = [
+  {
+    _id: '1',
+    placeName: 'Badshahi Mosque',
+    region: 'Punjab',
+    placeType: 'Mosque',
+    religiousAffiliation: 'Islam',
+    address: 'Fort Road, Lahore, Punjab',
+    significance: 'One of the largest mosques in the world and a symbol of Mughal-era architecture at its peak. Built during the reign of Emperor Aurangzeb in 1673, it can accommodate up to 100,000 worshippers in its courtyard.',
+    history: 'Commissioned by Mughal Emperor Aurangzeb in 1671 and completed in 1673, the Badshahi Mosque stands as a testament to the grandeur of Mughal architecture. For many years it was the largest mosque in the world, until the Faisal Mosque surpassed it in 1986. The mosque saw turbulent times during the Sikh Empire when it was used as a garrison and stable, before being restored under British rule.',
+    mainImage: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=1200&auto=format&fit=crop',
+    moreInfoUrl: 'https://en.wikipedia.org/wiki/Badshahi_Mosque'
+  },
+  {
+    _id: '2',
+    placeName: 'Shrine of Data Ganj Bakhsh',
+    region: 'Punjab',
+    placeType: 'Shrine',
+    religiousAffiliation: 'Islam (Sufi)',
+    address: 'Data Darbar Road, Lahore, Punjab',
+    significance: 'The largest Sufi shrine in South Asia and resting place of the 11th-century saint Ali Hujwiri, revered across faiths and visited by millions annually.',
+    history: 'Ali Hujwiri, known as Data Ganj Bakhsh, came to Lahore from Afghanistan in the 11th century and is considered the patron saint of Lahore. His mausoleum has grown into a vast complex that attracts devotees around the clock. The shrine suffered a devastating terrorist attack in 2010 but was subsequently rebuilt and remains a living center of Sufi spirituality.',
+    mainImage: 'https://images.unsplash.com/photo-1624555130581-1d9cca783bc0?w=1200&auto=format&fit=crop',
+    moreInfoUrl: 'https://en.wikipedia.org/wiki/Data_Darbar'
+  },
+  {
+    _id: '3',
+    placeName: 'Katasraj Temples',
+    region: 'Punjab',
+    placeType: 'Temple',
+    religiousAffiliation: 'Hinduism',
+    address: 'Chakwal District, Punjab',
+    significance: 'An ancient complex of Hindu temples surrounding a sacred lake, referenced in the Mahabharata. One of the holiest sites for Hindus in Pakistan.',
+    history: 'The Katasraj temples complex dates back over 1,000 years, though legends associate the sacred pond with the grief of Lord Shiva over the death of Sati. The site contains temples dedicated to various Hindu deities and draws pilgrims from India during special festivals. During the Partition in 1947, many temples fell into disuse but restoration efforts have brought renewed attention.',
+    mainImage: 'https://images.unsplash.com/photo-1618948927920-a4c31d3cf8e4?w=1200&auto=format&fit=crop',
+    moreInfoUrl: 'https://en.wikipedia.org/wiki/Katasraj_Temples'
+  },
+  {
+    _id: '4',
+    placeName: 'Rohtas Fort',
+    region: 'Punjab',
+    placeType: 'Historic Fort',
+    religiousAffiliation: 'Islamic Heritage',
+    address: 'Jhelum District, Punjab',
+    significance: 'A UNESCO World Heritage Site built by Sher Shah Suri in the 16th century, representing an outstanding example of early Muslim military architecture in South Asia.',
+    history: 'Built between 1541 and 1548 by Sher Shah Suri to subdue the Gakhar tribes and check the return of the Mughal Emperor Humayun, Rohtas Fort spans 4 km of walls and was never conquered. The fort is a remarkable blend of Pathan and Hindustani architectural styles and contains several mosques and gateways of great historical significance.',
+    mainImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&auto=format&fit=crop',
+    moreInfoUrl: 'https://en.wikipedia.org/wiki/Rohtas_Fort'
+  },
+  {
+    _id: '5',
+    placeName: 'Sacred Heart Cathedral',
+    region: 'Punjab',
+    placeType: 'Cathedral',
+    religiousAffiliation: 'Christianity',
+    address: 'Lawrence Road, Lahore, Punjab',
+    significance: 'The largest Catholic cathedral in Pakistan, a Neo-Gothic architectural landmark and the seat of the Archdiocese of Lahore, serving as the spiritual center for Pakistani Catholics.',
+    history: 'Built during the British colonial period in the late 19th century, the Sacred Heart Cathedral stands as a lasting example of European ecclesiastical architecture in South Asia. The cathedral has been the center of Catholic life in Lahore for generations and hosts major Christian celebrations. Its towering spires remain one of the most distinctive features of the Lahore skyline.',
+    mainImage: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?w=1200&auto=format&fit=crop',
+    moreInfoUrl: 'https://en.wikipedia.org/wiki/Sacred_Heart_Cathedral,_Lahore'
+  },
+  {
+    _id: '6',
+    placeName: 'Shrine of Shah Abdul Latif Bhittai',
+    region: 'Sindh',
+    placeType: 'Shrine',
+    religiousAffiliation: 'Islam (Sufi)',
+    address: 'Bhit Shah, Matiari District, Sindh',
+    significance: 'The resting place of the revered Sindhi Sufi poet-saint Shah Abdul Latif Bhittai, whose poetry shapes Sindhi identity and spirituality to this day.',
+    history: 'Shah Abdul Latif Bhittai (1689–1752) is regarded as the greatest Sindhi poet and a spiritual master. His tomb in Bhit Shah has been a major pilgrimage site for over 250 years. An annual Urs festival is held at the shrine, where devotees gather to sing his mystical poetry (kafi) accompanied by traditional Sindhi instruments. The shrine complex has grown significantly over the centuries.',
+    mainImage: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=1200&auto=format&fit=crop',
+    moreInfoUrl: 'https://en.wikipedia.org/wiki/Shah_Abdul_Latif_Bhittai'
+  },
+  {
+    _id: '7',
+    placeName: 'Gurdwara Panja Sahib',
+    region: 'Punjab',
+    placeType: 'Gurdwara',
+    religiousAffiliation: 'Sikhism',
+    address: 'Hasan Abdal, Attock District, Punjab',
+    significance: 'One of the most sacred Sikh shrines in the world, believed to bear the imprint of Guru Nanak\'s hand in stone. Visited by Sikh pilgrims from across the globe.',
+    history: 'The shrine commemorates a miracle attributed to Guru Nanak Dev Ji, the founder of Sikhism, who is said to have stopped a falling boulder with his hand, leaving its imprint on the rock. Built in the late Mughal period and expanded during various eras, the gurdwara now welcomes thousands of pilgrims, particularly during Baisakhi and Guru Nanak\'s birthday celebrations. Pakistan facilitates special pilgrimage trains from India for this sacred site.',
+    mainImage: 'https://images.unsplash.com/photo-1609765440-752e2e748fd7?w=1200&auto=format&fit=crop',
+    moreInfoUrl: 'https://en.wikipedia.org/wiki/Gurdwara_Panja_Sahib'
+  },
+  {
+    _id: '8',
+    placeName: 'Mohenjo-daro',
+    region: 'Sindh',
+    placeType: 'Archaeological Site',
+    religiousAffiliation: 'Ancient Civilization',
+    address: 'Larkana District, Sindh',
+    significance: 'A UNESCO World Heritage Site and one of the largest settlements of the ancient Indus Valley Civilization, circa 2500 BCE. A sacred connection to humanity\'s earliest urban heritage.',
+    history: 'Mohenjo-daro, meaning "Mound of the Dead," was a major center of the Indus Valley Civilization and one of the world\'s first great cities. Flourishing around 2500 BCE, it had advanced urban planning with drainage systems, grid streets, and large public buildings including what may have been a ritual bath. The site was abandoned by 1700 BCE and rediscovered in the 1920s, reshaping our understanding of early human civilization.',
+    mainImage: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1200&auto=format&fit=crop',
+    moreInfoUrl: 'https://en.wikipedia.org/wiki/Mohenjo-daro'
+  },
+  {
+    _id: '9',
+    placeName: 'Makli Necropolis',
+    region: 'Sindh',
+    placeType: 'Necropolis',
+    religiousAffiliation: 'Islamic Heritage',
+    address: 'Thatta, Sindh',
+    significance: 'One of the largest necropolises in the world and a UNESCO World Heritage Site, containing the tombs of rulers, saints, and scholars spanning several centuries of Sindhi civilization.',
+    history: 'The Makli Hill Necropolis near Thatta contains tombs built over four centuries from the 14th to 18th century. It is estimated that over one million people are buried here, including kings, queens, governors, saints, and scholars of the Samma, Arghun, Tarkhan, and Mughal dynasties. The complex features some of the finest examples of medieval Sindhi funerary architecture with exquisite tile work and stone carving.',
+    mainImage: 'https://images.unsplash.com/photo-1516939884455-1445c8652f83?w=1200&auto=format&fit=crop',
+    moreInfoUrl: 'https://en.wikipedia.org/wiki/Makli_Necropolis'
+  },
+  {
+    _id: '10',
+    placeName: 'Takht Bhai Buddhist Ruins',
+    region: 'Khyber Pakhtunkhwa',
+    placeType: 'Buddhist Site',
+    religiousAffiliation: 'Buddhism',
+    address: 'Takht-i-Bahi, Mardan District, KPK',
+    significance: 'An exceptionally well-preserved Buddhist monastic complex from the Gandhara civilization, dating to the 1st century CE and a UNESCO World Heritage Site.',
+    history: 'Takht Bhai (Throne of the Water Spring) is one of the most important archaeological sites from the Gandhara civilization, founded around the 1st century BCE. Monks lived here continuously for several centuries due to its naturally defended hilltop location. The complex includes main stupas, courtyards, assembly halls, and meditation chambers. It was listed as a UNESCO World Heritage Site in 1980 and remains one of the best-preserved Buddhist sites in South Asia.',
+    mainImage: 'https://images.unsplash.com/photo-1518639192441-8fce0a366e2e?w=1200&auto=format&fit=crop',
+    moreInfoUrl: 'https://en.wikipedia.org/wiki/Takht-i-Bahi'
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let filtered = [...PLACES];
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('copyright').textContent = `© ${new Date().getFullYear()} Sacred Pakistan. All rights reserved.`;
+  document.getElementById('copyright2').textContent = `© ${new Date().getFullYear()} Sacred Pakistan. All rights reserved.`;
+
+  populateFilters();
+  renderGrid(PLACES);
+  setHeroContent();
+  setupScrollAnimations();
+});
+
+function setHeroContent() {
+  if (PLACES[0]?.mainImage) document.getElementById('hero-img').src = PLACES[0].mainImage;
+  if (PLACES[1]?.mainImage) document.getElementById('fullbleed-img').src = PLACES[1].mainImage;
+  const types = [...new Set(PLACES.map(p => p.placeType).filter(Boolean))];
+  ['cat1','cat2','cat3','cat4'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && types[i]) el.textContent = types[i];
+  });
+}
+
+function populateFilters() {
+  const regions = [...new Set(PLACES.map(p => p.region).filter(Boolean))];
+  const types = [...new Set(PLACES.map(p => p.placeType).filter(Boolean))];
+  const affs = [...new Set(PLACES.map(p => p.religiousAffiliation).filter(Boolean))];
+
+  const regionSel = document.getElementById('region-select');
+  regions.forEach(r => { const o = document.createElement('option'); o.value = r; o.textContent = r; regionSel.appendChild(o); });
+
+  const typeSel = document.getElementById('type-select');
+  types.forEach(t => { const o = document.createElement('option'); o.value = t; o.textContent = t; typeSel.appendChild(o); });
+
+  const affSel = document.getElementById('affiliation-select');
+  affs.forEach(a => { const o = document.createElement('option'); o.value = a; o.textContent = a; affSel.appendChild(o); });
+}
+
+function filterPlaces() {
+  const search = document.getElementById('search-input').value.toLowerCase();
+  const region = document.getElementById('region-select').value;
+  const type = document.getElementById('type-select').value;
+  const aff = document.getElementById('affiliation-select').value;
+
+  filtered = PLACES.filter(p => {
+    const matchSearch = !search ||
+      p.placeName?.toLowerCase().includes(search) ||
+      p.history?.toLowerCase().includes(search) ||
+      p.significance?.toLowerCase().includes(search);
+    const matchRegion = !region || p.region === region;
+    const matchType = !type || p.placeType === type;
+    const matchAff = !aff || p.religiousAffiliation === aff;
+    return matchSearch && matchRegion && matchType && matchAff;
+  });
+
+  renderGrid(filtered);
+}
+
+function renderGrid(places) {
+  const grid = document.getElementById('places-grid');
+  document.getElementById('result-num').textContent = String(places.length).padStart(2, '0');
+
+  if (places.length === 0) {
+    grid.innerHTML = `<div class="no-results"><h3>VOID</h3><p>No sacred places match your current alignment.</p><button onclick="resetFilters()">Reset Filters</button></div>`;
+    return;
+  }
+
+  grid.innerHTML = places.map((place, i) => `
+    <div class="place-card fade-in" onclick="showDetail('${place._id}')">
+      <div class="card-image">
+        ${place.mainImage
+          ? `<img src="${place.mainImage}" alt="${place.placeName}" loading="lazy" />`
+          : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(62,31,13,0.08)"><span style="font-family:'Bebas Neue',sans-serif;color:rgba(62,31,13,0.3)">No Image</span></div>`
+        }
+        <div class="card-overlay">
+          <div class="card-arrow">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </div>
+        ${place.region ? `<div class="card-tag">${place.region}</div>` : ''}
+      </div>
+      <div class="card-meta">
+        <div>
+          <div class="card-title">${place.placeName}</div>
+          ${place.placeType ? `<div class="card-type">${place.placeType}</div>` : ''}
+        </div>
+        <div class="card-num">${String(i + 1).padStart(2, '0')}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Trigger scroll animations for new elements
+  setTimeout(() => {
+    document.querySelectorAll('#places-grid .fade-in').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 60);
+    });
+  }, 50);
+}
+
+function resetFilters() {
+  document.getElementById('search-input').value = '';
+  document.getElementById('region-select').value = '';
+  document.getElementById('type-select').value = '';
+  document.getElementById('affiliation-select').value = '';
+  renderGrid(PLACES);
+}
+
+// ── DETAIL ────────────────────────────────────────────────────────────────────
+function showDetail(id) {
+  const place = PLACES.find(p => p._id === id);
+  if (!place) return;
+
+  document.getElementById('home-page').classList.add('hidden');
+  const dp = document.getElementById('detail-page');
+  dp.classList.add('active');
+  window.scrollTo(0, 0);
+
+  const content = document.getElementById('detail-content');
+  content.innerHTML = `
+    <span class="detail-back" onclick="showHome()">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to All Places
+    </span>
+
+    <div class="detail-hero">
+      <div class="detail-image">
+        ${place.mainImage ? `<img src="${place.mainImage}" alt="${place.placeName}" />` : ''}
+      </div>
+      <div class="detail-meta">
+        <h1 class="detail-title">${place.placeName}</h1>
+        <div class="detail-badges">
+          ${place.region ? `<div class="badge badge-yellow"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>${place.region}</div>` : ''}
+          ${place.placeType ? `<div class="badge badge-dark"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 21h18M9 21V9l3-6 3 6v12M9 12h6"/></svg>${place.placeType}</div>` : ''}
+          ${place.religiousAffiliation ? `<div class="badge badge-red"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>${place.religiousAffiliation}</div>` : ''}
+        </div>
+        ${place.address ? `<div class="detail-location"><h3>Location</h3><p>${place.address}</p></div>` : ''}
+        ${place.moreInfoUrl ? `<a href="${place.moreInfoUrl}" target="_blank" rel="noopener noreferrer" class="more-link">Learn More <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>` : ''}
+      </div>
+    </div>
+
+    <div class="detail-sections">
+      ${place.significance ? `
+        <section class="section-significance">
+          <h2>Significance</h2>
+          <p>${place.significance}</p>
+        </section>` : ''}
+
+      ${place.history ? `
+        <section class="section-history">
+          <div class="history-label"><h2>Historical Background</h2></div>
+          <div class="history-text">${place.history}</div>
+        </section>` : ''}
+
+      <section class="section-visit">
+        <h2>Plan Your Visit</h2>
+        <div class="visit-grid">
+          <div class="visit-col">
+            <h3>Respect &amp; Guidelines</h3>
+            <ul>
+              <li>• Dress modestly and respectfully</li>
+              <li>• Follow local customs and traditions</li>
+              <li>• Maintain silence in prayer areas</li>
+              <li>• Ask permission before photography</li>
+            </ul>
+          </div>
+          <div class="visit-col">
+            <h3>Best Practices</h3>
+            <ul>
+              <li>• Visit during daylight hours</li>
+              <li>• Hire local guides for deeper insights</li>
+              <li>• Support local communities</li>
+              <li>• Help preserve these sacred spaces</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  `;
+}
+
+function showHome() {
+  document.getElementById('home-page').classList.remove('hidden');
+  document.getElementById('detail-page').classList.remove('active');
+  window.scrollTo(0, 0);
+}
+
+// ── NAV ───────────────────────────────────────────────────────────────────────
+function toggleMenu() {
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+function closeMobileNav() {
+  document.getElementById('mobile-nav').classList.remove('open');
+}
+
+// ── CONTACT ───────────────────────────────────────────────────────────────────
+function submitContact(e) {
+  e.preventDefault();
+  const msg = document.getElementById('success-msg');
+  msg.classList.add('show');
+  e.target.reset();
+  setTimeout(() => msg.classList.remove('show'), 4000);
+}
+
+// ── SCROLL ANIMATIONS ─────────────────────────────────────────────────────────
+function setupScrollAnimations() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '-60px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+</script>
+</body>
+</html>
